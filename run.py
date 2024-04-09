@@ -89,7 +89,8 @@ def main(args):
     training_args = TrainingArguments(
         output_dir=args.output_dir,
         overwrite_output_dir=True,
-        bf16=True,  # Use BF16 if available
+        fp16=True, 
+        # bf16=True, 
         # logging strategies
         logging_dir=f"{args.output_dir}/logs",
         logging_strategy="steps",
