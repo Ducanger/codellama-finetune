@@ -1,7 +1,7 @@
 from datasets import load_dataset
 
-def load_tokenized_data(args, data_path, tokenizer):
-    dataset = load_dataset('json', data_files=data_path)['train']
+def load_tokenized_data(args, dataset_path, split, tokenizer):
+    dataset = load_dataset(dataset_path, split=split)
 
     prompt = f"Give a short commit message for code from git diff:\n{{diff}}\nShort commit message:\n"
     

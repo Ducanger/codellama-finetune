@@ -35,7 +35,8 @@ def main(args):
     tokenizer.pad_token_id = tokenizer.eos_token_id
     tokenizer.padding_side = "left"
 
-    dataset = load_dataset('json', data_files=args.test_filename)['train']
+    dataset = load_dataset(args.dataset_path, split='test')
+    
     sources = [
         build_description_prompt(diff)
         for diff in zip(dataset['diff'])
@@ -65,6 +66,8 @@ def main(args):
 
 def parse_args():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--dataset_path", default='ducanger/diff-fira', type=str,
+                        help="Path to dataset for inferencing")
     parser.add_argument("--model_path", default="codellama/CodeLlama-7b-hf", type=str,
                         help="Path to pre-trained model: e.g. roberta-base, codellama/CodeLlama-7b-hf, Salesforce/codet5-base")
     parser.add_argument("--batch_size", default=2, type=int,
@@ -78,13 +81,6 @@ def parse_args():
                         help="The maximum total target sequence length after tokenization")
     parser.add_argument("--output_file", type=str, default="gen.output")
 
-        # dataset
-    parser.add_argument("--train_filename", default="dataset/train.jsonl", type=str,
-                        help="The train filename. Should contain the .jsonl files for this task.")
-    parser.add_argument("--dev_filename", default="dataset/valid.jsonl", type=str,
-                        help="The dev filename. Should contain the .jsonl files for this task.")
-    parser.add_argument("--test_filename", default="dataset/test.jsonl", type=str,
-                        help="The test filename. Should contain the .jsonl files for this task.")
     args = parser.parse_args()
     return args
 
