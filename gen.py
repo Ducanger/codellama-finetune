@@ -56,10 +56,10 @@ def main(args):
             for idx, source in enumerate(batch):
                 try:
                     out = output[idx].replace('\n', ' ')
-                    write_string_to_file(args.output_file, out + '\n')
+                    write_string_to_file(args.output_file, out + '<nl>')
                 except Exception as e:
                     print(e)
-                    write_string_to_file(args.output_file, '\n')
+                    write_string_to_file(args.output_file, '<nl>')
             pbar.update(1)
 
     print("\n====== Finish inferencing ======\n")
